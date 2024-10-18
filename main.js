@@ -2,6 +2,10 @@ import "./style.css";
 import NavigationBar from "./components/navBar";
 import Timeline from "./components/timeline";
 import SideBar from "./components/sideBar";
+import { Task } from "./core/tasks";
+
+// For debug
+window.Task = Task;
 
 const renderApp = () => {
   const appElement = document.querySelector("#app");
