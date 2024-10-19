@@ -1,4 +1,14 @@
+import { getTimezone, setTimezone } from "../core/timezone";
 const NavigationBar = (element) => {
+  const timezones = [];
+
+  for (let i = -11; i < 15; i++) {
+    const isSelected = i === getTimezone();
+    timezones.push(
+      new Option(`UTC${i >= 0 ? "+" : ""}${i}`, i, isSelected, isSelected),
+    );
+  }
+
   element.className = "bg-white shadow-sm";
   element.innerHTML = `
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -9,10 +19,6 @@ const NavigationBar = (element) => {
           </div>
           <div class="flex items-center space-x-4">
             <select id="timezone" class="rounded-md border-gray-300 bg-white shadow-sm focus:border-indigo-300 p-2 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
-              <option value="UTC">UTC</option>
-              <option value="UTC+1">UTC+1</option>
-              <option value="UTC+2">UTC+2</option>
-              <option value="UTC+3">UTC+3</option>
             </select>
             <button id="randomTasks" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 
             focus:ring-indigo-500 duration-300 ease-in-out">
@@ -23,6 +29,14 @@ const NavigationBar = (element) => {
         </div>
     </div>
     `;
+
+  for (let timezone of timezones) {
+    document.querySelector("#timezone").appendChild(timezone);
+  }
+
+  element.addEventListener("change", (event) => {
+    setTimezone(event.target.value);
+  });
 };
 
 export default NavigationBar;
