@@ -3,6 +3,7 @@ import NavigationBar from "./components/navBar";
 import Timeline from "./components/timeline";
 import SideBar from "./components/sideBar";
 import { Task } from "./core/tasks";
+import { initTimezone } from "./core/timezone";
 
 // For debug
 window.Task = Task;
@@ -24,6 +25,8 @@ const renderApp = () => {
   NavigationBar(appElement.querySelector("nav"));
   Timeline(appElement.querySelector("#timeline"));
   SideBar(appElement.querySelector("#side-bar"));
+
+  initTimezone(appElement);
 };
 
 document.addEventListener("DOMContentLoaded", renderApp);

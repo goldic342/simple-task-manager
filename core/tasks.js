@@ -8,7 +8,7 @@ export class Task {
     "id",
     "description",
   ];
-  static editable_props = [
+  static editableProps = [
     "deadline",
     "priority",
     "status",
@@ -16,9 +16,9 @@ export class Task {
     "timezone",
     "description",
   ];
-  static nullable_props = ["description", "id"];
+  static nullableProps = ["description", "id"];
 
-  static get_all() {
+  static getAll() {
     return JSON.parse(localStorage.getItem("tasks"));
   }
 
@@ -49,13 +49,13 @@ export class Task {
     this.status = status;
 
     // Init tasks in local storage
-    if (!Task.get_all()) {
+    if (!Task.getAll()) {
       localStorage.setItem("tasks", JSON.stringify([]));
     }
   }
 
   add() {
-    const tasks = Task.get_all();
+    const tasks = Task.getAll();
 
     for (let task of tasks) {
       if (task.id === this.id) {
@@ -70,7 +70,7 @@ export class Task {
   }
 
   static remove(task_id) {
-    const tasks = Task.get_all();
+    const tasks = Task.getAll();
     let removed_task;
 
     for (let task of tasks) {
@@ -86,11 +86,11 @@ export class Task {
   static update(task_id, properties) {
     // Validating keys
     for (let [key, value] of Object.entries(properties)) {
-      if (!Task.editable_props.includes(key)) {
+      if (!Task.editableProps.includes(key)) {
         throw new TypeError("Unknown prop or prop is not editable");
       }
 
-      if (!Task.nullable_props.includes(key) && !value) {
+      if (!Task.nullableProps.includes(key) && !value) {
         throw new TypeError("Property is not nullable");
       }
 
@@ -100,7 +100,7 @@ export class Task {
       }
     }
 
-    const tasks = Task.get_all();
+    const tasks = Task.getAll();
 
     for (let task of tasks) {
       if (task_id === task.id) {
